@@ -14,7 +14,15 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterUserView
-    }
+    },
+    {
+      path: '/menu',
+      name: 'dynamicContent',
+      // route level code-splitting
+      // this generates a separate chunk (dynamicContent.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: menubar.vue
+    },
   ]
 })
 
