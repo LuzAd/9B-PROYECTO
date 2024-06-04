@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../components/icons/login.vue'
 import RegisterUserView from './../components/RegisterUser.vue'
+import DashboardView from './../components/icons/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,12 +17,9 @@ const router = createRouter({
       component: RegisterUserView
     },
     {
-      path: '/menu',
-      name: 'dynamicContent',
-      // route level code-splitting
-      // this generates a separate chunk (dynamicContent.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: menubar.vue
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView
     },
   ]
 })
