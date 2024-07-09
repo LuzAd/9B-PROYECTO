@@ -6,14 +6,14 @@ import models, schemas
 def get_person(db: Session, id: int):
     return db.query(models.persons.Person).filter(models.persons.Person.id == id).first()
 
-def get_person_by_persona(db: Session, nombre: str):
-    return db.query(models.persons.Person).filter(models.persons.Person.nombre == nombre).first()
+def get_person_by_nombre(db: Session, person: str):
+    return db.query(models.persons.Person).filter(models.persons.Person.Nombre == person).first()
 
 def get_persons(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.persons.Person).offset(skip).limit(limit).all()
 
 def create_person(db: Session, person: schemas.persons.PersonCreate):
-    db_person = models.persons.Person(nombre=person.nombre, primer_apellido=person.primer_apellido, segundo_apellido=person.segundo_apellido, direccion=person.direccion, telefono=person.telefono, correo=person.correo, created_at=person.created_at, estatus=person.estatus)
+    db_person = models.persons.Person(Titulo_Cortesia=person.Titulo_Cortesia, Nombre=person.Nombre, Primer_Apellido=person.Primer_Apellido, Segundo_Apellido=person.Segundo_Apellido, Fecha_Nacimiento=person.Fecha_Nacimiento, Fotografia=person.Fotografia, Genero=person.Genero, Tipo_Sangre=person.Tipo_Sangre, Estatus=person.Estatus, Fecha_Registro=person.Fecha_Registro, Fecha_Actualizacion=person.Fecha_Actualizacion)
     db.add(db_person)
     db.commit()
     db.refresh(db_person)
