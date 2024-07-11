@@ -27,6 +27,6 @@ class User(UserBase):
 
 class UserLogin(BaseModel):
     Nombre_Usuario = str
-    correo_Electronico = str 
+    Correo_Electronico = str 
     Contrasena = str
     Numero_Telefonico_Movil = str 

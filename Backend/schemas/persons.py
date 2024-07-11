@@ -3,14 +3,17 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class PersonBase(BaseModel):
-    nombre: str
-    primer_apellido: str
-    segundo_apellido: str
-    direccion: str
-    telefono: str
-    correo: str
-    created_at: datetime
-    estatus: bool
+    Titulo_Cortesia:str
+    Nombre: str
+    Primer_Apellido: str
+    Segundo_Apellido: str
+    Fecha_Nacimiento: datetime
+    Fotografia: str
+    Genero: str
+    Tipo_Sangre: str
+    Estatus: bool
+    Fecha_Registro: datetime
+    Fecha_Actualizacion: datetime
 
 class PersonCreate(PersonBase):
     pass
