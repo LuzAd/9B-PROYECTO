@@ -6,13 +6,14 @@ from sqlalchemy.orm import Session
 from starlette.requests import Request
 from jwt_config import valida_token
 import crud.users, config.db, models.users
+
 models.users.Base.metadata.create_all(bind=config.db.engine)
 
 def get_db():
     db=config.db.SessionLocal()
     try:
         yield db
-    finally:        
+    finally:
         db.close()
 
 class Portador(HTTPBearer):
