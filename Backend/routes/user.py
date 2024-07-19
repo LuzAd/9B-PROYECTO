@@ -1,12 +1,14 @@
 from fastapi import APIRouter,HTTPException, Depends
+from fastapi.security import HTTPBearer
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from cryptography.fernet import Fernet
 import crud.users, config.db, schemas.users, models.users
 from typing import List
+import json
 from jwt_config import solicita_token
 from portadortoken import Portador
-from fastapi.responses import JSONResponse
-import json
 
 key = Fernet.generate_key()
 f = Fernet(key)
@@ -27,13 +29,13 @@ def bienvenido():
     return 'Bienvenido al sistema de APIs'
 
 # Ruta para obtener todos los usuarios
-@user.get('/users/', response_model=List[schemas.users.User],tags=['Usuarios'], dependencies=[Depends(Portador())])
+@user.get('/users/', response_model=List[schemas.users.User],tags=['Usuarios'],dependencies=[Depends(Portador())])
 def read_users(skip: int=0, limit: int=10, db: Session=Depends(get_db)):
     db_users = crud.users.get_users(db=db,skip=skip, limit=limit)
     return db_users
 
 # Ruta para obtener un usuario por ID
-@user.post("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"], dependencies=[Depends(Portador())])
+@user.post("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"],dependencies=[Depends(Portador())])
 def read_user(id: int, db: Session = Depends(get_db)):
     db_user= crud.users.get_user(db=db, id=id)
     if db_user is None:
@@ -49,7 +51,7 @@ def create_user(user: schemas.users.UserCreate, db: Session=Depends(get_db)):
     return crud.users.create_user(db=db, user=user)
 
 # Ruta para actualizar un usuario
-@user.put('/users/{id}', response_model=schemas.users.User,tags=['Usuarios'], dependencies=[Depends(Portador())])
+@user.put('/users/{id}', response_model=schemas.users.User,tags=['Usuarios'],dependencies=[Depends(Portador())])
 def update_user(id:int,user: schemas.users.UserUpdate, db: Session=Depends(get_db)):
     db_users = crud.users.update_user(db=db, id=id, user=user)
     if db_users is None:
@@ -57,7 +59,7 @@ def update_user(id:int,user: schemas.users.UserUpdate, db: Session=Depends(get_d
     return db_users
 
 # Ruta para eliminar un usuario
-@user.delete('/users/{id}', response_model=schemas.users.User,tags=['Usuarios'], dependencies=[Depends(Portador())])
+@user.delete('/users/{id}', response_model=schemas.users.User,tags=['Usuarios'],dependencies=[Depends(Portador())])
 def delete_user(id:int, db: Session=Depends(get_db)):
     db_users = crud.users.delete_user(db=db, id=id)
     if db_users is None:

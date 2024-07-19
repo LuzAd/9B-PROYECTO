@@ -31,7 +31,7 @@ def read_person(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Person not found")
     return db_person
 
-# Ruta para crear un usurio
+# Ruta para crear un usuario
 @person.post('/persons/', response_model=schemas.persons.Person,tags=['Personas'])
 def create_person(person: schemas.persons.PersonCreate, db: Session=Depends(get_db)):
     db_persons = crud.persons.get_person_by_nombre(db,nombre=person.Nombre)
